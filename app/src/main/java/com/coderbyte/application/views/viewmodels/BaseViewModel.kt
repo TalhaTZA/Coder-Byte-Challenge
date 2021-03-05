@@ -4,8 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.coderbyte.application.views.ApplicationClass
+import com.coderbyte.application.views.models.helper.NavigationModel
 import com.coderbyte.application.views.models.helper.NotificationMessage
 import com.coderbyte.application.views.utils.DisplayNotification
+import com.coderbyte.application.views.utils.Event
 import com.coderbyte.application.views.utils.TinyDB
 import com.coderbyte.network_module.models.response.ResponseGeneral
 import com.google.gson.Gson
@@ -30,13 +32,24 @@ open class BaseViewModel : ViewModel() {
         _loader.value = flag
     }
 
-    private val _navigate = MutableLiveData<Boolean>()
+    private val _navigateTo = MutableLiveData<Event<NavigationModel>>()
 
-    val navigate: LiveData<Boolean>
-        get() = _navigate
+    val navigateTo: LiveData<Event<NavigationModel>>
+        get() = _navigateTo
 
-    fun setNavigate(flag: Boolean) {
-        _navigate.value = flag
+
+    fun setNavigateTo(model: NavigationModel) {
+        _navigateTo.value = Event(model)
+    }
+
+    private val _navigateBack = MutableLiveData<Event<Boolean>>()
+
+    val navigateBack: LiveData<Event<Boolean>>
+        get() = _navigateBack
+
+
+    fun setNavigateBack(value: Boolean = true) {
+        _navigateBack.value = Event(value)
     }
 
     private val job = SupervisorJob()
@@ -45,6 +58,9 @@ open class BaseViewModel : ViewModel() {
         CoroutineExceptionHandler { _, throwable ->
             throwable.printStackTrace()
         }
+
+
+    val coroutineScopeMain = CoroutineScope(Dispatchers.Main + coroutineExceptionHandler)
 
 
     protected val coroutineScope = CoroutineScope(job + Dispatchers.IO + coroutineExceptionHandler)

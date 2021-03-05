@@ -109,6 +109,29 @@ class MainActivity : BaseActivity() {
 
 
             })
+
+            navigateTo.observe(this@MainActivity, Observer {
+
+                it.getContentIfNotHandled()?.let {
+
+                        model ->
+
+                    mNavController.currentDestination?.getAction(model.id)?.let {
+                        mNavController.navigate(model.id, model.bundle)
+                    }
+                }
+
+
+            })
+
+            navigateBack.observe(this@MainActivity, Observer {
+
+                it.getContentIfNotHandled()?.let {
+                    mNavController.navigateUp()
+                }
+
+
+            })
         }
     }
 
