@@ -26,7 +26,7 @@ internal class MainActivityViewModel : BaseViewModel() {
 
         coroutineScope.launch {
 
-            toggleLoader(true)
+//            toggleLoader(true)
 
             val data = ApiRepository.callApiForListingProducts()
 
@@ -47,7 +47,7 @@ internal class MainActivityViewModel : BaseViewModel() {
             }
 
 
-            toggleLoader(false)
+//            toggleLoader(false)
 
         }
 

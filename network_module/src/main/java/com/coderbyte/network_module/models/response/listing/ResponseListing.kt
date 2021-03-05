@@ -7,5 +7,5 @@ data class ResponseListing(
     @Json(name = "pagination")
     val pagination: Pagination? = null,
     @Json(name = "results")
-    val results: List<Result>? = null
+    val results: List<Product>? = null
 )

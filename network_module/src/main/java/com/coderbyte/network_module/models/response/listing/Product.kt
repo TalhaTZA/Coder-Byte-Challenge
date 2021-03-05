@@ -3,7 +3,7 @@ package com.coderbyte.network_module.models.response.listing
 
 import com.squareup.moshi.Json
 
-data class Result(
+data class Product(
     @Json(name = "created_at")
     val createdAt: String? = null,
     @Json(name = "image_ids")
