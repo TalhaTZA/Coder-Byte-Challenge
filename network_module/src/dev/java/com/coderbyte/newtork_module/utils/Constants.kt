@@ -5,7 +5,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 
 internal object Constants {
 
-    var BASE_URL = "https://jsonplaceholder.typicode.com/"
+    const val BASE_URL = "https://ey3f2y0nre.execute-api.us-east-1.amazonaws.com/"
 
     val LOG_LEVEL_API = HttpLoggingInterceptor.Level.BODY
 

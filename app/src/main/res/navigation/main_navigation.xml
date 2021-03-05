@@ -3,11 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/defaultFragmentStart">
-
+    app:startDestination="@id/productListingFragment">
     <fragment
-        android:id="@+id/defaultFragmentStart"
-        android:name="com.coderbyte.application.views.fragments.DefaultFragmentStart"
-        android:label="DefaultFragmentStart"
-        tools:layout="@layout/fragment_start" />
+        tools:layout="@layout/fragment_product_listing"
+        android:id="@+id/productListingFragment"
+        android:name="com.coderbyte.application.views.fragments.ProductListingFragment"
+        android:label="ProductListingFragment" />
 </navigation>

@@ -1,20 +1,21 @@
 package com.coderbyte.application.views.fragments
 
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.coderbyte.application.R
-import com.coderbyte.application.databinding.FragmentDefaultBinding
-import com.coderbyte.application.databinding.FragmentStartBinding
+import com.coderbyte.application.databinding.FragmentProductListingBinding
+import com.coderbyte.application.views.utils.T
 import com.coderbyte.application.views.viewmodels.MainActivityViewModel
 
 
-internal class DefaultFragmentStart : BaseFragment() {
+internal class ProductListingFragment : BaseFragment() {
 
-    private lateinit var mBinding: FragmentStartBinding
+    private lateinit var mBinding: FragmentProductListingBinding
     private lateinit var mViewModel: MainActivityViewModel
 
     override fun init() {
-        mViewModel.callServerFor()
+        mViewModel.callServerForProductListing()
     }
 
     override fun setListeners() {
@@ -24,10 +25,10 @@ internal class DefaultFragmentStart : BaseFragment() {
 
     }
 
-    override fun getFragmentLayout() = R.layout.fragment_start
+    override fun getFragmentLayout() = R.layout.fragment_product_listing
 
     override fun getViewBinding() {
-        mBinding = binding as FragmentStartBinding
+        mBinding = binding as FragmentProductListingBinding
     }
 
     override fun getViewModel() {
@@ -35,6 +36,17 @@ internal class DefaultFragmentStart : BaseFragment() {
     }
 
     override fun observe() {
+        mViewModel.apply {
+
+            responseProductListing.observe(this@ProductListingFragment, Observer {
+                it ?: return@Observer
+
+
+                requireContext().T("${it.results?.size ?: 0}")
+            })
+
+
+        }
     }
 
     override fun setLiveDataValues() {

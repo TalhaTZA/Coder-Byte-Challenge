@@ -1,7 +1,8 @@
 package com.coderbyte.network_module.repository
 
 
-import com.coderbyte.network_module.models.response.ResponseGeneral
+
+import com.coderbyte.network_module.models.response.listing.ResponseListing
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -18,8 +19,8 @@ internal interface RetrofitAPI {
 
     /*GET REQUEST*/
 
-    @GET("todos")
-    suspend fun getTodos(): Response<ResponseGeneral<Any>>
+    @GET("default/dynamodb-writer")
+    suspend fun getProductListing(): Response<ResponseListing>
 
 
     /*PUT REQUEST*/

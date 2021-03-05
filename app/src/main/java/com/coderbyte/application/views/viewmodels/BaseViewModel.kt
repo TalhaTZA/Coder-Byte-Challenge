@@ -9,7 +9,6 @@ import com.coderbyte.application.views.models.helper.NotificationMessage
 import com.coderbyte.application.views.utils.DisplayNotification
 import com.coderbyte.application.views.utils.Event
 import com.coderbyte.application.views.utils.TinyDB
-import com.coderbyte.network_module.models.response.ResponseGeneral
 import com.google.gson.Gson
 import kotlinx.coroutines.*
 import okhttp3.ResponseBody
@@ -135,14 +134,13 @@ open class BaseViewModel : ViewModel() {
         errorBody?.apply {
             val error = Gson().fromJson(
                 this.string(),
-                ResponseGeneral::class.java //CHANGE TO SPECIFIC ERROR RESPONSE
+                Any::class.java //CHANGE TO SPECIFIC ERROR RESPONSE
             )
 
 
             CoroutineScope(Dispatchers.Main).launch {
-                if (error.message.isNotEmpty()) {
-                    callMessageNotification(error.message.joinToString(" "))
-                }
+                    callMessageNotification(error.toString())
+
             }
         }
     }
