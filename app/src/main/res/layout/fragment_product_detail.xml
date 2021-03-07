@@ -17,6 +17,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:layout_marginStart="10dp"
             android:id="@+id/txt_view_product_name"
             style="@style/text_product_name"
             android:layout_width="0dp"

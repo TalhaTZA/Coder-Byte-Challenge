@@ -6,8 +6,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.coderbyte.application.views.fragments.ProductImageFragment
 
 
-class ImageViewPagerAdapter(fa: FragmentActivity, private val list : List<String> , private val fragment: Fragment) : FragmentStateAdapter(fa) {
+class ImageViewPagerAdapter(fa: FragmentActivity, private val list : List<String>) : FragmentStateAdapter(fa) {
     override fun getItemCount(): Int = list.size
 
-    override fun createFragment(position: Int): Fragment = ProductImageFragment(list[position],fragment)
+    override fun createFragment(position: Int): Fragment = ProductImageFragment(list[position])
 }

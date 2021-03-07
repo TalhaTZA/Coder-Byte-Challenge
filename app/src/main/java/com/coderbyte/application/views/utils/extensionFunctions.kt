@@ -17,6 +17,7 @@ import com.coderbyte.application.R
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.Transformation
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -90,6 +91,7 @@ fun Context.loadImage(
     url?.also {
         Glide.with(imageView.context)
             .load(url)
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .transform(*transform)
             .apply(
                 RequestOptions()
@@ -112,6 +114,7 @@ fun Fragment.loadImage(
         Glide.with(imageView.context)
             .load(url)
             .dontAnimate()
+            .diskCacheStrategy(DiskCacheStrategy.ALL)
             .transform(*transform)
             .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(

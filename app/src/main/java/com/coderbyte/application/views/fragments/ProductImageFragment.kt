@@ -11,8 +11,7 @@ import com.coderbyte.application.views.viewmodels.MainActivityViewModel
 
 
 internal class ProductImageFragment(
-    private val image: String,
-    private val fragment: Fragment
+    private val image: String
 ) : BaseFragment() {
 
     private lateinit var mBinding: FragmentProductImageBinding
@@ -24,7 +23,7 @@ internal class ProductImageFragment(
 
             imgViewProduct.transitionName = image
 
-            fragment.loadImage(
+            requireActivity().loadImage(
                 image, imgViewProduct,
                 CircleCrop()
             )

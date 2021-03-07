@@ -68,7 +68,7 @@ internal class ProductListingFragment : BaseFragment() {
         mBinding.recyclerViewProductListing.adapter = mAdapterListing
 
 
-        submitShimmer()
+        mViewModel.responseProductListing.value ?: submitShimmer()
 
     }
 

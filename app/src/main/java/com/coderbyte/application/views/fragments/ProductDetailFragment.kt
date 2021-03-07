@@ -48,13 +48,13 @@ internal class ProductDetailFragment : BaseFragment() {
     private fun setAdapter() {
         mBinding.apply {
 
-//            viewPagerImage.viewTreeObserver.addOnPreDrawListener {
-//                startPostponedEnterTransition()
-//                true
-//            }
+            viewPagerImage.viewTreeObserver.addOnPreDrawListener {
+                startPostponedEnterTransition()
+                true
+            }
 
             mAdapter =
-                ImageViewPagerAdapter(requireActivity(), mProduct?.imageUrls ?: arrayListOf() , this@ProductDetailFragment)
+                ImageViewPagerAdapter(requireActivity(), mProduct?.imageUrls ?: arrayListOf())
 
             viewPagerImage.adapter = mAdapter
         }
