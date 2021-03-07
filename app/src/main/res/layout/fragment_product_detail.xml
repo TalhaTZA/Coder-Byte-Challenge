@@ -5,10 +5,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/default_16_dp">
+        android:layout_height="match_parent">
 
         <androidx.viewpager2.widget.ViewPager2
+            android:layout_margin="@dimen/default_16_dp"
             android:id="@+id/view_pager_image"
             android:layout_width="100dp"
             android:layout_height="100dp"
@@ -17,11 +17,11 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:layout_marginStart="10dp"
             android:id="@+id/txt_view_product_name"
             style="@style/text_product_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/view_pager_image"
             app:layout_constraintTop_toTopOf="@+id/view_pager_image"
@@ -37,6 +37,34 @@
             app:layout_constraintStart_toStartOf="@+id/txt_view_product_name"
             app:layout_constraintTop_toBottomOf="@+id/txt_view_product_name"
             tools:text="AED 5" />
+
+        <TextView
+            android:layout_margin="@dimen/default_16_dp"
+            android:id="@+id/txt_view_all_products"
+            style="@style/text_product_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_16_dp"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@android:color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_pager_image"
+            tools:text="All Products" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_product_listing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_view_all_products"
+            tools:itemCount="10"
+            tools:listitem="@layout/item_shimmer_loader" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

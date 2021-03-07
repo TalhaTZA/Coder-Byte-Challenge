@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 
 
 data class Global(
-    @SerializedName("string_app_name")
+    @SerializedName("string_all_products")
     @Expose
-    val stringAppName: String = ""
+    val stringAllProducts: String = ""
 )

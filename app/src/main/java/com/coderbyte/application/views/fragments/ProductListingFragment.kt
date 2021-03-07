@@ -13,7 +13,6 @@ import com.coderbyte.application.views.models.helper.NavigationModel
 import com.coderbyte.application.views.utils.Constants
 import com.coderbyte.application.views.utils.Enums
 import com.coderbyte.application.views.utils.ItemClickListener
-import com.coderbyte.application.views.utils.T
 import com.coderbyte.application.views.viewmodels.MainActivityViewModel
 import java.util.*
 import kotlin.collections.ArrayList
@@ -141,7 +140,7 @@ internal class ProductListingFragment : BaseFragment() {
 
             if (!results.isNullOrEmpty()) {
                 results?.map {
-                    DataItemProductListing.ProductItemListing(it)
+                    DataItemProductListing.ProductItemListingGrid(it)
                 }?.let {
                     mAdapterListing.submitList(it)
                 }

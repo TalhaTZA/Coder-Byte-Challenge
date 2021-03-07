@@ -1,13 +1,20 @@
 package com.coderbyte.application.views.fragments
 
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.transition.TransitionInflater
 import com.coderbyte.application.R
 import com.coderbyte.application.databinding.FragmentDefaultBinding
 import com.coderbyte.application.databinding.FragmentProductDetailBinding
+import com.coderbyte.application.views.ApplicationClass
+import com.coderbyte.application.views.adapters.DataItemProductListing
 import com.coderbyte.application.views.adapters.ImageViewPagerAdapter
+import com.coderbyte.application.views.adapters.ListProductAdapter
+import com.coderbyte.application.views.models.helper.NavigationModel
 import com.coderbyte.application.views.utils.Enums
+import com.coderbyte.application.views.utils.ItemClickListener
 import com.coderbyte.application.views.viewmodels.MainActivityViewModel
 import com.coderbyte.network_module.models.response.listing.Product
 
@@ -19,6 +26,8 @@ internal class ProductDetailFragment : BaseFragment() {
     private lateinit var mAdapter: ImageViewPagerAdapter
 
     private var mProduct: Product? = null
+
+    private lateinit var mAdapterListing: ListProductAdapter
 
     override fun init() {
 
@@ -32,6 +41,62 @@ internal class ProductDetailFragment : BaseFragment() {
         setAdapter()
 
         setData()
+
+        setListingAdapter()
+
+
+    }
+
+    private fun setListingAdapter() {
+        mAdapterListing = ListProductAdapter(ItemClickListener {
+
+                product, view ->
+
+            var url = ""
+
+            if (!product.imageUrls.isNullOrEmpty()) {
+                product.imageUrls?.find {
+                    it.isNotEmpty()
+                }?.apply {
+                    url = this
+                }
+            }
+
+            mViewModel.setNavigateTo(
+                NavigationModel(
+                    id = R.id.action_productDetailFragment_self,
+                    bundle = bundleOf(
+                        Enums.BundleFragmentKeys.PRODUCT.key to product
+                    ),
+                    fragNavigatorExtras = FragmentNavigatorExtras(
+                        view to url
+                    )
+                )
+            )
+        })
+
+
+
+        mBinding.recyclerViewProductListing.adapter = mAdapterListing
+
+        mViewModel.responseProductListing.value?.apply {
+
+//            postponeEnterTransition()
+//            mBinding.recyclerViewProductListing.viewTreeObserver.addOnPreDrawListener {
+//                startPostponedEnterTransition()
+//                true
+//            }
+
+            if (!results.isNullOrEmpty()) {
+                results?.map {
+                    DataItemProductListing.ProductItemListingHorizontal(it)
+                }?.let {
+                    mAdapterListing.submitList(it.filter {
+                        it.product != mProduct
+                    })
+                }
+            }
+        }
     }
 
     private fun setData() {
@@ -49,7 +114,13 @@ internal class ProductDetailFragment : BaseFragment() {
         mBinding.apply {
 
             viewPagerImage.viewTreeObserver.addOnPreDrawListener {
-                startPostponedEnterTransition()
+
+                mBinding.recyclerViewProductListing.viewTreeObserver.addOnPreDrawListener {
+                    startPostponedEnterTransition()
+                    true
+                }
+
+
                 true
             }
 
@@ -64,6 +135,11 @@ internal class ProductDetailFragment : BaseFragment() {
     }
 
     override fun setLanguageData() {
+        mBinding.apply {
+            ApplicationClass.languageJson?.global?.apply {
+                txtViewAllProducts.text = stringAllProducts
+            }
+        }
 
     }
 
