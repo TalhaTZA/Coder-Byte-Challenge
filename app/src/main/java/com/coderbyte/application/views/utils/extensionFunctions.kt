@@ -91,7 +91,7 @@ fun Context.loadImage(
     url?.also {
         Glide.with(imageView.context)
             .load(url)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .transform(*transform)
             .apply(
                 RequestOptions()
@@ -114,7 +114,7 @@ fun Fragment.loadImage(
         Glide.with(imageView.context)
             .load(url)
             .dontAnimate()
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
+            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
             .transform(*transform)
             .listener(object : RequestListener<Drawable> {
                 override fun onLoadFailed(
