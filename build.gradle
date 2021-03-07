@@ -15,6 +15,7 @@ buildscript {
         version_lifecycle_extensions = "2.1.0"
         version_glide = "4.10.0"
         version_shimmer = "0.5.0"
+        version_view_pager = "1.0.0"
     }
     repositories {
         google()

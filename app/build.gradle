@@ -103,6 +103,9 @@ dependencies {
     //SHIMMER
     implementation "com.facebook.shimmer:shimmer:$version_shimmer"
 
+    //VIEW PAGER 2
+    implementation "androidx.viewpager2:viewpager2:$version_view_pager"
+
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'

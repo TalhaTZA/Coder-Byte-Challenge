@@ -1,8 +1,11 @@
 package com.coderbyte.network_module.models.response.listing
 
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Product(
     @Json(name = "created_at")
     val createdAt: String? = null,
@@ -18,4 +21,4 @@ data class Product(
     val price: String? = null,
     @Json(name = "uid")
     val uid: String? = null
-)
+) : Parcelable

@@ -1,13 +1,16 @@
 package com.coderbyte.application.views.fragments
 
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.coderbyte.application.R
 import com.coderbyte.application.databinding.FragmentProductListingBinding
 import com.coderbyte.application.views.adapters.DataItemProductListing
 import com.coderbyte.application.views.adapters.ListProductAdapter
+import com.coderbyte.application.views.models.helper.NavigationModel
 import com.coderbyte.application.views.utils.Constants
+import com.coderbyte.application.views.utils.Enums
 import com.coderbyte.application.views.utils.ItemClickListener
 import com.coderbyte.application.views.utils.T
 import com.coderbyte.application.views.viewmodels.MainActivityViewModel
@@ -25,14 +28,21 @@ internal class ProductListingFragment : BaseFragment() {
 
 
     override fun init() {
-        mViewModel.callServerForProductListing()
+        mViewModel.responseProductListing.value ?: mViewModel.callServerForProductListing()
 
         setAdapter()
     }
 
     private fun setAdapter() {
         mAdapterListing = ListProductAdapter(ItemClickListener {
-
+            mViewModel.setNavigateTo(
+                NavigationModel(
+                    id = R.id.action_productListingFragment_to_productDetailFragment,
+                    bundle = bundleOf(
+                        Enums.BundleFragmentKeys.PRODUCT.key to it
+                    )
+                )
+            )
         })
 
         mBinding.recyclerViewProductListing.adapter = mAdapterListing

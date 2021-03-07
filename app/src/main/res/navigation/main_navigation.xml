@@ -8,5 +8,14 @@
         tools:layout="@layout/fragment_product_listing"
         android:id="@+id/productListingFragment"
         android:name="com.coderbyte.application.views.fragments.ProductListingFragment"
-        android:label="ProductListingFragment" />
+        android:label="ProductListingFragment" >
+        <action
+            android:id="@+id/action_productListingFragment_to_productDetailFragment"
+            app:destination="@id/productDetailFragment" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_product_detail"
+        android:id="@+id/productDetailFragment"
+        android:name="com.coderbyte.application.views.fragments.ProductDetailFragment"
+        android:label="ProductDetailFragment" />
 </navigation>
