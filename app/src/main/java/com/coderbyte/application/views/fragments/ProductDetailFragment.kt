@@ -2,6 +2,7 @@ package com.coderbyte.application.views.fragments
 
 import android.view.View
 import androidx.lifecycle.ViewModelProviders
+import androidx.transition.TransitionInflater
 import com.coderbyte.application.R
 import com.coderbyte.application.databinding.FragmentDefaultBinding
 import com.coderbyte.application.databinding.FragmentProductDetailBinding
@@ -20,6 +21,9 @@ internal class ProductDetailFragment : BaseFragment() {
     private var mProduct: Product? = null
 
     override fun init() {
+
+        setSharedElementTransitionOnEnter()
+        postponeEnterTransition()
 
         if (requireArguments().getParcelable<Product>(Enums.BundleFragmentKeys.PRODUCT.key) != null) {
             mProduct = requireArguments().getParcelable(Enums.BundleFragmentKeys.PRODUCT.key)
@@ -43,8 +47,14 @@ internal class ProductDetailFragment : BaseFragment() {
 
     private fun setAdapter() {
         mBinding.apply {
+
+//            viewPagerImage.viewTreeObserver.addOnPreDrawListener {
+//                startPostponedEnterTransition()
+//                true
+//            }
+
             mAdapter =
-                ImageViewPagerAdapter(requireActivity(), mProduct?.imageUrls ?: arrayListOf())
+                ImageViewPagerAdapter(requireActivity(), mProduct?.imageUrls ?: arrayListOf() , this@ProductDetailFragment)
 
             viewPagerImage.adapter = mAdapter
         }
@@ -76,6 +86,11 @@ internal class ProductDetailFragment : BaseFragment() {
 
     override fun onClick(v: View?) {
 
+    }
+
+    private fun setSharedElementTransitionOnEnter() {
+        sharedElementEnterTransition = TransitionInflater.from(requireContext())
+            .inflateTransition(android.R.transition.move)
     }
 
 }

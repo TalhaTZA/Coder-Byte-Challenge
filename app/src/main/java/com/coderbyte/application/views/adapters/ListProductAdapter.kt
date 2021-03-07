@@ -91,11 +91,21 @@ class ListProductAdapter(
 
                     clickListener = itemClickListener
 
+                    if (!imageUrls.isNullOrEmpty()) {
+                        imageUrls?.find {
+                            it.isNotEmpty()
+                        }?.let {
+                            frameLayoutHolder.transitionName = it
+                        }
+
+                    }
+
 
                     if (!imageUrlsThumbnails.isNullOrEmpty()) {
                         imageUrlsThumbnails?.find {
                             it.isNotEmpty()
                         }?.let {
+
                             mContext.loadImage(
                                 it,
                                 imgViewProduct,

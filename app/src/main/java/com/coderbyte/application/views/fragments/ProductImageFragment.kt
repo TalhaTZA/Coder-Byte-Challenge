@@ -1,28 +1,36 @@
 package com.coderbyte.application.views.fragments
 
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.coderbyte.application.R
 import com.coderbyte.application.databinding.FragmentProductImageBinding
-import com.coderbyte.application.views.utils.Constants
 import com.coderbyte.application.views.utils.loadImage
 import com.coderbyte.application.views.viewmodels.MainActivityViewModel
-import com.coderbyte.network_module.models.response.listing.Product
 
 
-internal class ProductImageFragment(private val image: String) : BaseFragment() {
+internal class ProductImageFragment(
+    private val image: String,
+    private val fragment: Fragment
+) : BaseFragment() {
 
     private lateinit var mBinding: FragmentProductImageBinding
     private lateinit var mViewModel: MainActivityViewModel
 
     override fun init() {
-        requireContext().loadImage(
-            image, mBinding.imgViewProduct,
-            CircleCrop()
-        )
+
+        mBinding.apply {
+
+            imgViewProduct.transitionName = image
+
+            fragment.loadImage(
+                image, imgViewProduct,
+                CircleCrop()
+            )
+        }
+
+
     }
 
     override fun setListeners() {

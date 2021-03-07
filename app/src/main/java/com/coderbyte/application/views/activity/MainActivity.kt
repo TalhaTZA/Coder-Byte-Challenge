@@ -117,7 +117,12 @@ class MainActivity : BaseActivity() {
                         model ->
 
                     mNavController.currentDestination?.getAction(model.id)?.let {
-                        mNavController.navigate(model.id, model.bundle)
+                        mNavController.navigate(
+                            model.id,
+                            model.bundle,
+                            null,
+                            model.fragNavigatorExtras
+                        )
                     }
                 }
 

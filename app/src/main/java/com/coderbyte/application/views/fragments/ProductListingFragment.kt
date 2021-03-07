@@ -4,6 +4,7 @@ import android.view.View
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import com.coderbyte.application.R
 import com.coderbyte.application.databinding.FragmentProductListingBinding
 import com.coderbyte.application.views.adapters.DataItemProductListing
@@ -34,16 +35,35 @@ internal class ProductListingFragment : BaseFragment() {
     }
 
     private fun setAdapter() {
+
         mAdapterListing = ListProductAdapter(ItemClickListener {
+
+                product, view ->
+
+            var url = ""
+
+            if (!product.imageUrls.isNullOrEmpty()) {
+                product.imageUrls?.find {
+                    it.isNotEmpty()
+                }?.apply {
+                    url = this
+                }
+            }
+
             mViewModel.setNavigateTo(
                 NavigationModel(
                     id = R.id.action_productListingFragment_to_productDetailFragment,
                     bundle = bundleOf(
-                        Enums.BundleFragmentKeys.PRODUCT.key to it
+                        Enums.BundleFragmentKeys.PRODUCT.key to product
+                    ),
+                    fragNavigatorExtras = FragmentNavigatorExtras(
+                        view to url
                     )
                 )
             )
         })
+
+
 
         mBinding.recyclerViewProductListing.adapter = mAdapterListing
 
@@ -112,6 +132,12 @@ internal class ProductListingFragment : BaseFragment() {
 
     private fun setAdapterData() {
         mViewModel.responseProductListing.value?.apply {
+
+            postponeEnterTransition()
+            mBinding.recyclerViewProductListing.viewTreeObserver.addOnPreDrawListener {
+                startPostponedEnterTransition()
+                true
+            }
 
             if (!results.isNullOrEmpty()) {
                 results?.map {
