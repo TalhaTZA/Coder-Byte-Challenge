@@ -60,6 +60,16 @@ internal class ProductListingFragment : BaseFragment() {
     }
 
     override fun setListeners() {
+        mBinding.apply {
+            swipeRefreshLayout.setOnRefreshListener {
+                swipeRefreshLayout.isRefreshing = false
+
+                mViewModel.callServerForProductListing()
+
+                submitShimmer()
+
+            }
+        }
     }
 
     override fun setLanguageData() {
