@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:customAttrs="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.coderbyte.network_module.models.response.listing.Product" />
+
+        <variable
+            name="clickListener"
+            type="com.coderbyte.application.views.utils.ItemClickListener" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/default_16_dp">
+
+
+        <FrameLayout
+            android:id="@+id/frame_layout_holder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_item_product"
+            android:onClick="@{()-> clickListener.onClick(model)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/img_view_product"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:minHeight="120dp" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/txt_view_product_name"
+            style="@style/text_product_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@{model.name}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/frame_layout_holder"
+            tools:text="Name Of Product" />
+
+        <TextView
+            android:id="@+id/txt_view_product_price"
+            style="@style/text_product_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@{model.price}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_view_product_name"
+            tools:text="AED 5" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+

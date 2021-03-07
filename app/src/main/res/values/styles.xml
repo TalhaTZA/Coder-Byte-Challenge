@@ -11,4 +11,18 @@
         <item name="colorAccent">@android:color/holo_blue_dark</item>
     </style>
 
+    <style name="text_product_name">
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">@font/dms_regular</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="text_product_price">
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">@font/dms_bold</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/gold</item>
+    </style>
+
 </resources>

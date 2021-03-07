@@ -6,4 +6,5 @@
 
     <color name="white">#FFFFFF</color>
     <color name="shimmer_background">#dddddd</color>
+    <color name="gold">#dcc076</color>
 </resources>

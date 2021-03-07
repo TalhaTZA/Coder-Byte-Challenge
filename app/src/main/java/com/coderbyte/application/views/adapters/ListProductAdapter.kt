@@ -5,8 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.coderbyte.application.databinding.ItemProductListBinding
 import com.coderbyte.application.databinding.ItemShimmerLoaderBinding
+import com.coderbyte.application.views.ApplicationClass
 import com.coderbyte.application.views.utils.ItemClickListener
+import com.coderbyte.application.views.utils.loadImage
 import com.coderbyte.network_module.models.response.listing.Product
 
 private const val ITEM_VIEW_TYPE_PRODUCT = 0
@@ -14,9 +17,11 @@ private const val ITEM_VIEW_TYPE_LOADER = 1
 
 
 class ListProductAdapter(
-    private val clickListener: ItemClickListener<DataItemProductListing>
+    private val clickListener: ItemClickListener<Product>
 ) :
     ListAdapter<DataItemProductListing, RecyclerView.ViewHolder>(DiffCallbackProductList()) {
+
+    private val mContext by lazy { ApplicationClass.application }
 
 
     override fun getItemViewType(position: Int): Int {
@@ -35,6 +40,11 @@ class ListProductAdapter(
 
         return when (viewType) {
 
+            ITEM_VIEW_TYPE_PRODUCT -> {
+                val binding = ItemProductListBinding.inflate(layoutInflater, parent, false)
+                ProductListingViewHolder(binding)
+            }
+
 
             ITEM_VIEW_TYPE_LOADER -> {
                 val binding = ItemShimmerLoaderBinding.inflate(layoutInflater, parent, false)
@@ -52,11 +62,49 @@ class ListProductAdapter(
 
         when (holder) {
 
+            is ProductListingViewHolder -> {
+                holder.bind(
+                    modelProductItem as DataItemProductListing.ProductItemListing,
+                    clickListener
+                )
+            }
 
             is ShimmerLoaderViewHolder -> {
                 holder.bind()
             }
         }
+    }
+
+    private inner class ProductListingViewHolder(private val binding: ItemProductListBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(
+            modelProductItem: DataItemProductListing.ProductItemListing,
+            itemClickListener: ItemClickListener<Product>
+        ) {
+            binding.apply {
+
+                modelProductItem.product.apply {
+                    model = this
+
+                    clickListener = itemClickListener
+
+
+                    if (!imageUrlsThumbnails.isNullOrEmpty()) {
+                        imageUrlsThumbnails?.find {
+                            it.isNotEmpty()
+                        }?.let {
+                            mContext.loadImage(it, imgViewProduct)
+                        }
+
+                    }
+                }
+
+
+                executePendingBindings()
+            }
+        }
+
     }
 
 

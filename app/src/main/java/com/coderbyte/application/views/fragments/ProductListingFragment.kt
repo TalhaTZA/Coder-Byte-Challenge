@@ -83,15 +83,28 @@ internal class ProductListingFragment : BaseFragment() {
                 it ?: return@Observer
 
 
-                requireContext().T("${it.results?.size ?: 0}")
+                setAdapterData()
             })
 
 
         }
     }
 
-    override fun setLiveDataValues() {
+    private fun setAdapterData() {
+        mViewModel.responseProductListing.value?.apply {
 
+            if (!results.isNullOrEmpty()) {
+                results?.map {
+                    DataItemProductListing.ProductItemListing(it)
+                }?.let {
+                    mAdapterListing.submitList(it)
+                }
+            }
+        }
+    }
+
+    override fun setLiveDataValues() {
+        setAdapterData()
     }
 
     override fun onClick(v: View?) {
