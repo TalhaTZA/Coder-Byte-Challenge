@@ -2,6 +2,7 @@ package com.coderbyte.application.views.utils
 
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.location.LocationManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
@@ -12,6 +13,7 @@ import androidx.fragment.app.FragmentActivity
 import com.coderbyte.application.R
 //import coil.api.load
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.Transformation
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -75,15 +77,19 @@ fun getKeyboardHeight(imm: InputMethodManager): Int =
     InputMethodManager::class.java.getMethod("getInputMethodWindowVisibleHeight").invoke(imm) as Int
 
 
-fun Context.loadImage(url: String?, imageView: ImageView) {
+fun Context.loadImage(
+    url: String?,
+    imageView: ImageView,
+    vararg transform: Transformation<Bitmap>
+) {
     url?.also {
         Glide.with(imageView.context)
             .load(url)
-            .transform(RoundedCorners(16))
+            .transform(*transform)
             .apply(
                 RequestOptions()
                     .placeholder(R.drawable.loading_animation)
-//                    .error(R.drawable.secure_logo)
+                    .error(android.R.color.darker_gray)
             )
             .into(imageView)
 

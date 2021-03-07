@@ -5,9 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.coderbyte.application.databinding.ItemProductListBinding
 import com.coderbyte.application.databinding.ItemShimmerLoaderBinding
 import com.coderbyte.application.views.ApplicationClass
+import com.coderbyte.application.views.utils.Constants
 import com.coderbyte.application.views.utils.ItemClickListener
 import com.coderbyte.application.views.utils.loadImage
 import com.coderbyte.network_module.models.response.listing.Product
@@ -94,7 +96,11 @@ class ListProductAdapter(
                         imageUrlsThumbnails?.find {
                             it.isNotEmpty()
                         }?.let {
-                            mContext.loadImage(it, imgViewProduct)
+                            mContext.loadImage(
+                                it,
+                                imgViewProduct,
+                                RoundedCorners(Constants.ROUND_CORNER_RADIUS)
+                            )
                         }
 
                     }
