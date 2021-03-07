@@ -132,6 +132,9 @@ internal class ProductDetailFragment : BaseFragment() {
     }
 
     override fun setListeners() {
+        mBinding.apply {
+            toolBar.imgViewBack.setOnClickListener(this@ProductDetailFragment)
+        }
     }
 
     override fun setLanguageData() {
@@ -161,7 +164,11 @@ internal class ProductDetailFragment : BaseFragment() {
     }
 
     override fun onClick(v: View?) {
-
+        when(v?.id){
+            R.id.img_view_back->{
+                mViewModel.setNavigateBack()
+            }
+        }
     }
 
     private fun setSharedElementTransitionOnEnter() {
